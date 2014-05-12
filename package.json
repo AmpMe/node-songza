@@ -1,0 +1,29 @@
+{
+  "name": "node-songza",
+  "version": "0.0.0",
+  "description": "node-songza ===========",
+  "main": "songza.js",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "request": "^2.34.0",
+    "through": "^2.3.4",
+    "when": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "chai": "^1.9.1"
+  },
+  "scripts": {
+    "test": "mocha --recursive --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/trevorsenior/node-songza.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trevorsenior/node-songza/issues"
+  },
+  "homepage": "https://github.com/trevorsenior/node-songza"
+}
