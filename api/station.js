@@ -44,18 +44,12 @@ exports.upvote = function(stationId, songId) {
 	});
 };
 
-exports.create = function(name) {
+exports.create = function(stationName) {
 	var options = {
 		uri: settings.base + '/station/create',
 		method: 'POST',
 		body: JSON.stringify({
-			status: "UNRELEASED",
-			genres: [],
-			advertising: {
-				"interstitial_ad": false,
-				"display_ad": false
-			},
-			name: name
+			name: stationName
 		})
 	};
 
@@ -63,17 +57,15 @@ exports.create = function(name) {
 };
 
 exports.update = function(stationId, options) {
+	options = options || {};
 	return exports.details(stationId).then(function(details) {
-		var options = {
+		details = details || {};
+		var requestOptions = {
 			uri: settings.base + '/station/' + stationId,
 			method: 'POST',
 			body: JSON.stringify({
 				status: details.status,
 				genres: [],
-				advertising: {
-					interstitial_ad: false,
-					display_ad: false
-				},
 				name: options.name || details.name,
 				dasherized_name: options.dasherized_name || details.dasherized_name,
 				global_station: options.global_station || details.global_station,
@@ -90,7 +82,7 @@ exports.update = function(stationId, options) {
 			})
 		};
 
-		return request.songza(options);
+		return request.songza(requestOptions);
 	});
 };
 

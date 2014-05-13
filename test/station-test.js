@@ -99,7 +99,7 @@ describe('station', function() {
 
 	});
 
-	describe.only('downvote', function() {
+	describe('downvote', function() {
 
 		it('should not work (not logged in)', function() {
 			return station.downvote('1393503', '5003159').then(function(result) {
@@ -193,9 +193,14 @@ describe('station', function() {
 
 	describe('create', function() {
 
-		it.skip('should work', function() {
-			return station.create().then(function(result) {
-
+		it('should create a new station', function() {
+			return auth.login(process.env.SONGZA_USER, process.env.SONGZA_PASS)
+			.then(function() {
+				return station.create('test_station2');
+			})
+			.then(function(result) {
+				expect(result.name).to.equal('test_station2');
+				console.log(result); //!!!debug
 			});
 		});
 
