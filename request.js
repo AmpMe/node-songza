@@ -3,6 +3,7 @@
 var zlib = require('zlib')
 , _ = require('lodash')
 , when = require('when')
+, delay = require('when/delay')
 , node = require('when/node')
 , through = require('through')
 , request = require('request');
@@ -81,18 +82,44 @@ module.exports.promise = function(options) {
 	});
 };
 
+
+
+
+// Throttle requests to Songza
+var throttle = {
+	currentWait: 1,
+	delayPerCall: 1000 // wait one seconds per call
+};
+
 module.exports.songza = function(options) {
 
-	return when.promise(function(resolve, reject) {
+	throttle.currentWait += throttle.delayPerCall;
 
-		var body = ''
-		, req = module.exports.compressedRequest(options);
+	// Wait for the current wait set
+	return delay(throttle.currentWait)
 
-		req.on('error', reject);
-		req.on('data', function(chunk) { body += chunk.toString(); });
-		req.on('end', function() { return resolve(body); });
+	// Make the request to Songza
+	.then(function() {
+		return when.promise(function(resolve, reject) {
 
-	}).then(function(body) {
+			var body = ''
+			, req = module.exports.compressedRequest(options);
+
+			req.on('error', reject);
+			req.on('data', function(chunk) { body += chunk.toString(); });
+			req.on('end', function() { return resolve(body); });
+
+		});
+	})
+
+	// Get back the response, decrement the currentWait by the
+	// delay per call.
+	//
+	// We also normalize any error messages here and reject the
+	// promise if any arise.
+	.then(function(body) {
+
+		throttle.currentWait -= throttle.delayPerCall;
 
 		var result;
 
@@ -108,6 +135,10 @@ module.exports.songza = function(options) {
 
 		if (!_.isUndefined(result.code)) {
 			result.error = true;
+		}
+
+		if (result.error) {
+			throw new Error(JSON.stringify(result));
 		}
 
 		return result;

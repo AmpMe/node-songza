@@ -1,12 +1,38 @@
 "use strict";
 
-var _ = require('lodash')
+var when = require('when')
+, _ = require('lodash')
 , request = require('../request')
 , settings = require('../settings');
 
-exports.details = function(stationId) {
+exports.get = function(stationId) {
 	var uri = settings.base + '/station/' + stationId;
 	return request.songza(uri);
+};
+
+exports.getByName = function(stationName) {
+	return request.songza(settings.base + '/station/dname/' + stationName);
+};
+
+exports.getByUrl = function(url) {
+	var match = url.match(/.*\/station\/(\d+)\/?$/);
+	if (match) {
+		return exports.get(parseInt(match[1], 10));
+	}
+
+	match = url.match(/.*\/listen\/([^\/]+)\/?$/);
+	if (match) {
+		return exports.getByName(match[1]);
+	}
+
+	return when.reject(new Error('Unable to station from URL ' + url));
+};
+
+exports.getBatch = function(stationIds) {
+	return request.songza({
+		uri: settings.base + '/station/multi',
+		qs: { id: stationIds }
+	});
 };
 
 exports.similar = function(stationId) {
@@ -14,7 +40,7 @@ exports.similar = function(stationId) {
 	return request.songza(uri);
 };
 
-exports.next = function(stationId, format, buffer, coverSize) {
+exports.nextSong = function(stationId, format, buffer, coverSize) {
 	var options = {
 		uri: settings.base + '/station/' + stationId + '/next',
 		method: 'POST',
@@ -26,6 +52,30 @@ exports.next = function(stationId, format, buffer, coverSize) {
 	};
 
 	return request.songza(options);
+};
+
+exports.notifyPlay = function(stationId, songId, skip) {
+	skip = skip || false;
+	return request.songza({
+		uri: settings.base +
+			'/station/' + stationId +
+			'/song/' + songId +
+			'/notify-play',
+		method: 'POST',
+		form: { skip: skip ? 1 : 0 }
+	});
+};
+
+exports.notifySkip = function(stationId, songId) {
+	return exports.notifyPlay(stationId, songId, 1);
+};
+
+// I'm not sure what this endpoint is for yet
+exports.listen = function(stationId) {
+	return request.songza({
+		uri: settings.base + '/station/' + stationId + '/listen',
+		method: 'POST'
+	});
 };
 
 exports.downvote = function(stationId, songId) {
@@ -163,3 +213,7 @@ exports.stats = function(stationId, startDate, endDate) {
 
 	return request.songza(options);
 };
+
+// 403 Forbidden
+exports.uploadImage = function() {};
+exports.deleteImage = function() {};

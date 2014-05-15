@@ -3,49 +3,37 @@
 /* global it */
 
 var gallery = require('../api/gallery');
-var expect = require('chai').expect;
+
+var chai = require('chai');
+chai.use(require('chai-as-promised'));
+var expect = chai.expect;
 
 describe('gallery', function() {
 
-	describe('tagMoods', function() {
+	describe('get', function() {
 
-		it('should get the tagMoods', function() {
-			return gallery.tagMoods().then(function(result) {
-				expect(result[0].tags[0].id).to.equal('moods');
-			});
+		it('should get a gallery by id', function() {
+			return expect(gallery.get('_curated-aggressive'))
+				.to.eventually.haveOwnProperty('id', '_curated-aggressive');
 		});
 
 	});
 
-	describe('tagDecades', function() {
-
-		it('should get the tagDecades', function() {
-			return gallery.tagDecades().then(function(result) {
-				expect(result[0].tags[0].id).to.equal('decades');
-			});
-		});
-
+	describe('getBatch', function() {
+		// ? can't seem to get it to work
+		it.skip('should work');
 	});
 
-	describe('tagGenres', function() {
-
-		it('should get the tagGenres', function() {
-			return gallery.tagGenres().then(function(result) {
-				expect(result[0].tags[0].id).to.equal('genres');
-			});
+	describe('tag', function() {
+		it('should get back gallery results based on tags', function() {
+			return expect(gallery.tag('moods'))
+				.to.eventually.be.instanceof(Array);
 		});
-
 	});
 
-	describe('tagActivities', function() {
-
-		it('should get the tagActivities', function() {
-			return gallery.tagActivities().then(function(result) {
-				expect(result[0].tags[0].id).to.equal('activities');
-			});
-		});
-
+	describe('create gallery', function() {
+		// admin only
+		it.skip('should work');
 	});
-
 
 });

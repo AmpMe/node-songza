@@ -3,22 +3,20 @@
 var request = require('../request')
 , settings = require('../settings');
 
-exports.tagMoods = function() {
-	var uri = settings.base + '/gallery/tag/moods';
-	return request.songza(uri);
+exports.get = function(galleryId) {
+	return request.songza(settings.base + '/gallery/id/' + galleryId);
 };
 
-exports.tagDecades = function() {
-	var uri = settings.base + '/gallery/tag/decades';
-	return request.songza(uri);
+exports.getBatch = function(galleryIds) {
+	return request.songza({
+		uri: settings.base + '/gallery/multi',
+		qs: { ids: galleryIds }
+	});
 };
 
-exports.tagGenres = function() {
-	var uri = settings.base + '/gallery/tag/genres';
-	return request.songza(uri);
+exports.tag = function(tagId) {
+	return request.songza(settings.base + '/gallery/tag/' + tagId);
 };
 
-exports.tagActivities = function() {
-	var uri = settings.base + '/gallery/tag/activities';
-	return request.songza(uri);
-};
+// 403 Forbidden
+exports.createGallery = function() {};

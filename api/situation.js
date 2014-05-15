@@ -4,7 +4,7 @@ var _ = require('lodash')
 , request = require('../request')
 , settings = require('../settings');
 
-exports.targeted = function(maxSituations, maxStations, currentDate) {
+exports.getTargeted = function(maxSituations, maxStations, currentDate) {
 
 	currentDate = currentDate || new Date();
 
@@ -36,12 +36,30 @@ exports.targeted = function(maxSituations, maxStations, currentDate) {
 			current_date: current_date,
 			day: day,
 			period: 2,
-			site: 'songza',
+			site: settings.site,
 			optimizer: 'default',
 			max_situations: maxSituations || 5,
 			max_stations: maxStations || 3,
-			device: 'web'
+			device: settings.device
 		}
 	};
 	return request.songza(requestOptions);
+};
+
+// Need proper access to create a new tag, else 403 forbidden
+exports.createTag = function(tagName, tagSlug) {
+	return request.songza({
+		uri: settings.base + '/tags/create',
+		method: 'POST',
+		form: {
+			site: settings.site,
+			name: tagName,
+			slug: tagSlug
+		}
+	});
+};
+
+// 403 forbidden
+exports.create = function() {
+
 };

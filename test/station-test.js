@@ -7,7 +7,9 @@ var station = require('../api/station')
 , auth = require('../api/auth')
 , request = require('../request');
 
-var expect = require('chai').expect;
+var chai = require('chai');
+chai.use(require('chai-as-promised'));
+var expect = chai.expect;
 
 describe('station', function() {
 

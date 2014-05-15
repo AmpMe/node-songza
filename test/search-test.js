@@ -3,48 +3,46 @@
 /* global it */
 
 var search = require('../api/search');
-var expect = require('chai').expect;
+
+var chai = require('chai');
+chai.use(require('chai-as-promised'));
+var expect = chai.expect;
 
 describe('search', function() {
 
 	describe('artist', function() {
-
 		it('should return results', function() {
-			return search.artist('snoop').then(function(result) {
-				expect(result instanceof Array).to.equal(true);
-			});
+			return expect(search.artist('snoop'))
+				.to.eventually.be.instanceof(Array);
 		});
-
 	});
 
 	describe('station', function() {
-
 		it('should return results', function() {
-			return search.station('snoop').then(function(result) {
-				expect(result instanceof Array).to.equal(true);
-			});
+			return expect(search.station('snoop'))
+				.to.eventually.be.instanceof(Array);
 		});
-
 	});
 
 	describe('song', function() {
-
 		it('should return a result containing a songs array', function() {
-			return search.song('snoop').then(function(result) {
-				expect(result.songs instanceof Array).to.equal(true);
-			});
+			return expect(search.song('snoop'))
+				.to.eventually.haveOwnProperty('songs');
 		});
-
 	});
 
 	describe('situation', function() {
-
 		it('should return results', function() {
-			return search.situation('snoop').then(function(result) {
-				expect(result instanceof Array).to.equal(true);
-			});
+			return expect(search.situation('snoop'))
+				.to.eventually.be.instanceof(Array);
 		});
+	});
 
+	describe('gallery', function() {
+		it('should return results', function() {
+			return expect(search.gallery('snoop'))
+				.to.eventually.be.instanceof(Array);
+		});
 	});
 
 });

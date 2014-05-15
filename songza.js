@@ -11,5 +11,3 @@ exports.song = require('./api/song');
 exports.station = require('./api/station');
 exports.tags = require('./api/tags');
 exports.user = require('./api/user');
-
-exports.init = 

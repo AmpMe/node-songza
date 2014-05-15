@@ -1,7 +1,6 @@
 "use strict";
 
-var when = require('when')
-, request = require('../request')
+var request = require('../request')
 , settings = require('../settings');
 
 function search(uri, query, limit) {
@@ -31,4 +30,8 @@ exports.song = function(query, limit) {
 
 exports.situation = function(query, limit) {
 	return search(settings.base + '/search/situation', query, limit);
+};
+
+exports.gallery = function(query, limit) {
+	return search(settings.base + '/search/gallery', query, limit);
 };
