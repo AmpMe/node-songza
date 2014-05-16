@@ -1,6 +1,7 @@
 "use strict";
 
-var when = require('when')
+var querystring = require('querystring')
+, when = require('when')
 , _ = require('lodash')
 , request = require('../request')
 , settings = require('../settings');
@@ -29,10 +30,10 @@ exports.getByUrl = function(url) {
 };
 
 exports.getBatch = function(stationIds) {
-	return request.songza({
-		uri: settings.base + '/station/multi',
-		qs: { id: stationIds }
-	});
+	return request.songza(
+		settings.base + '/station/multi' +
+		'?' + querystring.stringify({ id: stationIds })
+	);
 };
 
 exports.similar = function(stationId) {
@@ -108,11 +109,11 @@ exports.create = function(stationName) {
 
 exports.update = function(stationId, options) {
 	options = options || {};
-	return exports.details(stationId).then(function(details) {
+	return exports.get(stationId).then(function(details) {
 		details = details || {};
 		var requestOptions = {
 			uri: settings.base + '/station/' + stationId,
-			method: 'POST',
+			method: 'PUT',
 			body: JSON.stringify({
 				status: details.status,
 				genres: [],
@@ -180,8 +181,8 @@ exports.removeSong = function(stationId, songId) {
 };
 
 exports.release = function(stationId, released) {
-	released = released || 1;
-	return request({
+	released = typeof released === 'undefined' ? 1 : 0;
+	return request.songza({
 		uri: settings.base + '/station/' + stationId + '/release',
 		method: 'POST',
 		form: { released: released }
