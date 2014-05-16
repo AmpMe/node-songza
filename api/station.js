@@ -55,8 +55,9 @@ exports.nextSong = function(stationId, format, buffer, coverSize) {
 	return request.songza(options);
 };
 
+// http://songza.com/api/1/station/1708916/song/5419075/notify-play
 exports.notifyPlay = function(stationId, songId, skip) {
-	skip = skip || false;
+	skip = typeof skip === 'undefined' ? false : true;
 	return request.songza({
 		uri: settings.base +
 			'/station/' + stationId +

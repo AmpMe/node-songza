@@ -103,7 +103,7 @@ describe('station', function() {
 
 	describe('similar', function() {
 
-		it('should work', function() {
+		it('should find similar songs', function() {
 			return expect(station.similar('1399111'))
 				.to.eventually.be.instanceof(Array);
 		});
@@ -129,6 +129,15 @@ describe('station', function() {
 				.to.eventually.be.rejectedWith(JSON.stringify({
 					error: 'no such station (id=13991987987987981)'
 				}));
+		});
+
+	});
+
+	describe.only('notifyPlay', function() {
+
+		it('should notify that we have played a song', function() {
+			return expect(station.notifyPlay(1708916, 5419075))
+				.to.eventually.haveOwnProperty('skippable');
 		});
 
 	});
