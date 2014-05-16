@@ -4,9 +4,12 @@ var _ = require('lodash')
 , request = require('../request')
 , settings = require('../settings');
 
-exports.getTargeted = function(maxSituations, maxStations, currentDate) {
+exports.getTargeted = function(options) {
 
-	currentDate = currentDate || new Date();
+	options = options || {};
+	var currentDate = options.currentDate || new Date();
+	var maxSituations = options.maxSituations || 5;
+	var maxStations = options.maxStations || 3;
 
 	var offsetHours = (currentDate.getTimezoneOffset() / 60);
 	offsetHours = String('00' + offsetHours).slice(-2);
@@ -38,8 +41,8 @@ exports.getTargeted = function(maxSituations, maxStations, currentDate) {
 			period: 2,
 			site: settings.site,
 			optimizer: 'default',
-			max_situations: maxSituations || 5,
-			max_stations: maxStations || 3,
+			max_situations: maxSituations,
+			max_stations: maxStations,
 			device: settings.device
 		}
 	};
