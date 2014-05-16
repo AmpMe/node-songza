@@ -8,7 +8,70 @@ The API calls are documented below. Their parameters, and return types are indic
 
 It is also worth noting that the API handles throttling internally at a rate of one request per second.
 
-## artist
+- - -
+
+ - [Artist](#Artist)
+   - songza.artist.details(artistId)
+   - songza.artist.suggest(name [, number])
+ - [Auth](#Auth)
+   - songza.auth.login(username, password)
+   - songza.auth.logout()
+ - [Collection](#Collection)
+   - songza.collection.user(userId)
+   - songza.collection.getById(userId, collectionId)
+   - songza.collection.getByTitle(userId, collectionTitle)
+   - songza.collection.create(userId, collectionTitle)
+   - songza.collection.delete(collectionId)
+   - songza.collection.addStation(collectionId, stationId)
+   - songza.collection.removeStation(collectionId, stationId)
+ - [Gallery](#Gallery)
+   - songza.gallery.get(galleryId)
+   - songza.gallery.tag(galleryId)
+ - [Search](#Search)
+   - songza.search.artist(query [, limit])
+   - songza.search.station(query [, limit])
+   - songza.search.song(query [, limit])
+   - songza.search.situation(query [, limit])
+   - songza.search.gallery(query [, limit])
+ - [Situation](#Situation)
+   - songza.situation.getTargeted(options)
+ - [Song](#Song)
+   - songza.song.details(songId)
+ - [Station](#Station)
+   - songza.station.get(stationId)
+   - songza.station.getByName(stationName)
+   - songza.station.getByUrl(url)
+   - songza.station.getBatch(stationIds)
+   - songza.station.similar(stationId)
+   - songza.station.nextSong(stationId, format, buffer, coverSize)
+   - songza.station.notifyPlay(stationId, songId, skip)
+   - songza.station.notifySkip(stationId, songId)
+   - songza.station.listen(stationId)
+   - songza.station.downvote(stationId, songId)
+   - songza.station.upvote(stationId, songId)
+   - songza.station.create(stationName)
+   - songza.station.update(stationId, options)
+   - songza.station.addSong(stationId, songId)
+   - songza.station.songs(stationId)
+   - songza.station.stationSong(stationId, songId, options)
+   - songza.station.removeSong(stationId, songId)
+   - songza.station.release(stationId, released)
+   - songza.station.unrelease(stationId)
+   - songza.station.stats(stationId, startDate, endDate)
+ - [Tag](#Tag)
+   - songza.tag.getAll([ featured ])
+   - songza.tag.get(tagId)
+ - [User](#User)
+   - songza.user.getCurrent()
+   - songza.user.profile(userId)
+   - songza.user.stations(userId, options)
+   - songza.user.follow(userId)
+   - songza.user.unfollow(userId)
+   - songza.user.getFollows(userId)
+   - songza.user.getFollowers(userId)
+   - songza.user.feed(userId)
+
+## Artist
 
 ### songza.artist.details(artistId)
 
@@ -89,21 +152,6 @@ Adds a station to a collection.
 Return: Promise (no value returned)
 
 Removes a station from a collection.
-
-## Tag
-
-### songza.tag.getAll([ featured ])
-
-Defaults: `featured = true`
-Return: Promise for Array
-
-Returns a list of all tag information that can be used for this API.
-
-### songza.tag.get(tagId)
-
-Return: Promise for Object
-
-Get specific information for a tag.
 
 ## Gallery
 
@@ -250,6 +298,21 @@ Return: Promise for Object
 ### songza.station.stats(stationId, startDate, endDate)
 
 Return: Promise for Object
+
+## Tag
+
+### songza.tag.getAll([ featured ])
+
+Defaults: `featured = true`
+Return: Promise for Array
+
+Returns a list of all tag information that can be used for this API.
+
+### songza.tag.get(tagId)
+
+Return: Promise for Object
+
+Get specific information for a tag.
 
 ## User
 
