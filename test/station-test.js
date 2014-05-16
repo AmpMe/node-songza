@@ -133,7 +133,7 @@ describe('station', function() {
 
 	});
 
-	describe.only('notifyPlay', function() {
+	describe('notifyPlay', function() {
 
 		it('should notify that we have played a song', function() {
 			return expect(station.notifyPlay(1708916, 5419075))
