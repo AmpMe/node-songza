@@ -1,7 +1,7 @@
 {
-  "name": "node-songza",
+  "name": "songza",
   "version": "0.0.0",
-  "description": "node-songza ===========",
+  "description": "An API wrapper for Songza",
   "main": "songza.js",
   "dependencies": {
     "lodash": "^2.4.1",
