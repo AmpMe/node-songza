@@ -18,7 +18,7 @@ describe('auth', function() {
 				process.env.SONGZA_PASS)
 			.then(user.getCurrent)
 			.then(function(user) {
-				expect(user.email).to.equal(process.env.SONGZA_USER);
+				expect(user.username).to.equal(process.env.SONGZA_USER);
 			});
 		});
 	});

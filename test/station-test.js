@@ -416,7 +416,7 @@ describe('station', function() {
 		});
 
 		describe('stats', function() {
-			it.only('should work', function() {
+			it('should get back stats for a user station', function() {
 				return expect(station.stats(stationId, new Date(), new Date()))
 					.to.eventually.eql([]);
 			});

@@ -15,7 +15,7 @@
     "mocha": "^1.18.2"
   },
   "scripts": {
-    "test": "mocha --recursive --timeout 10000"
+    "test": "mocha --recursive --timeout 10000 -R spec"
   },
   "repository": {
     "type": "git",
