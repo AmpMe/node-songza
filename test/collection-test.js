@@ -48,9 +48,8 @@ describe('collection', function() {
 	describe('create/delete collections', function() {
 
 		it('should create a collection alright', function() {
-			var promise = collection.create(userId, 'test-a');
-			expect(promise).to.eventually.haveOwnProperty('title', 'test-a');
-			return promise;
+			return expect(collection.create(userId, 'test-a'))
+				.to.eventually.haveOwnProperty('title', 'test-a');
 		});
 
 		it('should delete a collection', function() {
