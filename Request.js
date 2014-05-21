@@ -25,32 +25,6 @@ function Request(settings) {
 		}
 	});
 
-	// Sets the session id in the cookie jar - it is required that you call this
-	// at least once before some endpoints will function.
-	self.initSession = function() {
-		// load up Songza's login page to load the sessionid and crsf cookies
-		// for use when logging in
-		return self.promise('http://songza.com/login');
-	};
-
-	self.clearSession = function() {
-		cookieJar._jar.store.idx = {};
-	};
-
-	self.hasSession = function() {
-		return !_.isUndefined(cookieJar._jar.store.idx['songza.com']);
-	};
-
-	self.ensureSessionExists = function() {
-		return self.hasSession()
-			? when.resolve()
-			: self.initSession();
-	};
-
-	self.getCookieValue = function(site, path, key) {
-		return cookieJar._jar.store.idx[site][path][key].value;
-	};
-
 	// A request stream that can handle decompression
 	self.compressedRequest = function(options) {
 
@@ -84,9 +58,6 @@ function Request(settings) {
 			});
 		});
 	};
-
-
-
 
 	// Throttle requests to Songza
 	var throttle = {

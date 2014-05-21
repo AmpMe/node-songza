@@ -5,29 +5,19 @@ module.exports = function(request, settings) {
 	var self = {};
 
 	self.login = function(username, password) {
-		return request.ensureSessionExists().then(function() {
-
-			var csrftoken = request.getCookieValue('songza.com', '/', 'csrftoken');
-
-			return request.promise({
-				uri: 'http://songza.com/login/',
-				method: 'POST',
-				qs: { next: '/' },
-				form: {
-					'csrfmiddlewaretoken': csrftoken,
-					'state-next': '/',
-					'state-mode': '',
-					'login-username': username,
-					'login-password': password
-				}
-			});
-
+		return request.songza({
+			uri: settings.base + '/login/pw',
+			method: 'POST',
+			form: {
+				username: username,
+				password: password,
+				site: settings.site
+			}
 		});
-
 	};
 
 	self.logout = function() {
-		request.clearSession();
+		return request.songza(settings.base + '/logout');
 	};
 
 	return self;
