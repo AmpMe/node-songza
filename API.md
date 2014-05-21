@@ -106,7 +106,7 @@ Username must be an email address or the username used when signing up.
 
 ### songza.auth.logout()
 
-Return: (no value returned)
+Return: Promise (no value returned)
 
 Clears the current session.
 
