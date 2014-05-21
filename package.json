@@ -15,7 +15,7 @@
     "mocha": "^1.18.2"
   },
   "scripts": {
-    "test": "mocha --recursive --timeout 10000 -R spec"
+    "test": ": ${SONGZA_USER?'Need to set SONGZA_USER and SONGZA_PASS'} && mocha --recursive --timeout 10000 -R spec"
   },
   "repository": {
     "type": "git",

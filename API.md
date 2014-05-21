@@ -1,7 +1,9 @@
 # API Documentation
 
 ```javascript
-var songza = require('songza');
+var Songza = require('songza');
+
+songza = new Songza({ userAgent: 'myApp/v0.0.1' });
 ```
 
 The API calls are documented below. Their parameters, and return types are indicated. Most calls return promises for values.

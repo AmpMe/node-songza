@@ -1,9 +1,14 @@
 "use strict";
 
-var request = require('../request')
-, settings = require('../settings');
+module.exports = function(request, settings) {
 
-exports.details = function(songId) {
-	var uri = settings.base + '/song/' + songId;
-	return request.songza(uri);
+	var self = {};
+
+	self.details = function(songId) {
+		var uri = settings.base + '/song/' + songId;
+		return request.songza(uri);
+	};
+
+	return self;
+
 };

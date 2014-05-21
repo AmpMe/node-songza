@@ -1,17 +1,22 @@
 "use strict";
 
-var request = require('../request')
-, settings = require('../settings');
+module.exports = function(request, settings) {
 
-exports.details = function(artistId) {
-	var uri = settings.base + '/artist/' + artistId;
-	return request.songza(uri);
-};
+	var self = {};
 
-exports.suggest = function(name, number) {
-	number = number || 10;
-	return request.songza({
-		uri: settings.base + '/suggest/artist',
-		qs: { name: name, num: number }
-	});
+	self.details = function(artistId) {
+		var uri = settings.base + '/artist/' + artistId;
+		return request.songza(uri);
+	};
+
+	self.suggest = function(name, number) {
+		number = number || 10;
+		return request.songza({
+			uri: settings.base + '/suggest/artist',
+			qs: { name: name, num: number }
+		});
+	};
+
+	return self;
+
 };
