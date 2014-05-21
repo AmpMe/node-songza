@@ -4,6 +4,8 @@ var _ = require('lodash');
 
 module.exports = function(request, settings) {
 
+	var period = require('./period')(request, settings);
+
 	var self = {};
 
 	self.getTargeted = function(options) {
@@ -40,7 +42,7 @@ module.exports = function(request, settings) {
 			qs: {
 				current_date: current_date,
 				day: day,
-				period: 2,
+				period: options.periodNumber || period.getCurrentNumber(),
 				site: settings.site,
 				optimizer: 'default',
 				max_situations: maxSituations,
