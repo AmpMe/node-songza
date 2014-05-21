@@ -3,7 +3,7 @@
 ```javascript
 var Songza = require('songza');
 
-songza = new Songza({ userAgent: 'myApp/v0.0.1' });
+var songza = new Songza({ userAgent: 'myApp/v0.0.1' });
 ```
 
 The API calls are documented below. Their parameters, and return types are indicated. Most calls return promises for values.
