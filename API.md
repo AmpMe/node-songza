@@ -29,6 +29,11 @@ It is also worth noting that the API handles throttling internally at a rate of 
  - [Gallery](#gallery)
    - songza.gallery.get(galleryId)
    - songza.gallery.tag(galleryId)
+ - [Period](#period)
+   - songza.period.getNumberFromDate(date)
+   - songza.period.getCurrentNumber()
+   - songza.period.getDescriptionFromDate(date)
+   - songza.period.getCurrentDescription()
  - [Search](#search)
    - songza.search.artist(query [, limit])
    - songza.search.station(query [, limit])
@@ -45,7 +50,7 @@ It is also worth noting that the API handles throttling internally at a rate of 
    - songza.station.getByUrl(url)
    - songza.station.getBatch(stationIds)
    - songza.station.similar(stationId)
-   - songza.station.nextSong(stationId, format, buffer, coverSize)
+   - songza.station.nextSong(stationId [, format [, buffer [, coverSize]]])
    - songza.station.notifyPlay(stationId, songId, skip)
    - songza.station.notifySkip(stationId, songId)
    - songza.station.listen(stationId)
@@ -166,6 +171,32 @@ Return: Promise for Object
 Return: Promise for Array
 
 Returns back galleries based on tags. Call `songza.tag.getAll` for a list of all tags that are available for use.
+
+## Period
+
+### songza.period.getNumberFromDate(date)
+
+Return: Number
+
+Gets back a number (based on date) that represents the time of day. Can be used to specify a specific time period when calling `situation.getTargeted()`.
+
+### songza.period.getCurrentNumber()
+
+Return: Number
+
+Gets back a number that represents the current time of day. Used when calling `situation.getTargeted()` to return results based on the current time.
+
+### songza.period.getDescriptionFromDate(date)
+
+Return: String
+
+A description for a given date such as "Monday Morning".
+
+### songza.period.getCurrentDescription()
+
+Return: String
+
+A description for the current date such as "Friday Late Night".
 
 ## Search
 
